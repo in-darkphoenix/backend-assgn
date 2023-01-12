@@ -5,8 +5,8 @@ const calculator = () => {
   const ops = args[2];
   let res;
 
-  const n1 = Number(args[3]);
-  const n2 = Number(args[4]);
+  const n1 = Number(args[3]) || null;
+  const n2 = Number(args[4]) || null;
   switch (ops) {
     case "add":
       res = n1 + n2;
