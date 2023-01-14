@@ -3,7 +3,6 @@ const fs = require("fs");
 const fileOperations = () => {
   const args = process.argv;
   const ops = args[2];
-  // read append delete create rename list
 
   const path = args[3];
 
