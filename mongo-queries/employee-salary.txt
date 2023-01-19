@@ -1,0 +1,73 @@
+1. Count of Men in Engineering
+db.employee_salary.countDocuments({
+  gender: "Male",
+  department: "Engineering",
+})
+//43
+
+2. Count of Women in Engineering who earn less than one million
+db.employee_salary.countDocuments({
+  gender: "Female",
+  department: "Engineering",
+  salary: {
+    $lt: 1000000,
+  },
+})
+//12
+
+3. Count of people make less than 80k
+db.employee_salary.countDocuments({
+  salary: {
+    $lt: 80000,
+  },
+})
+//9
+
+4. People who belong Accounting and Legal who make less than 100k
+db.employee_salary.find({
+  department: { $in: ["Accounting", "Legal"] },
+  salary: {
+    $lt: 100000,
+  },
+})
+
+5. Top 10 earning Men
+db.employee_salary.find({ gender: "Male" }).sort({ salary: -1 }).limit(10)
+
+6. Bottom 10 earning Women
+db.employee_salary.find({ gender: "Female" }).sort({ salary: 1 }).limit(10)
+
+7. Top 5 earning Engineering people
+db.employee_salary
+  .find({ department: "Engineering" })
+  .sort({ salary: -1 })
+  .limit(5)
+
+8. Bottom 5 earning Legal people
+db.employee_salary.find({ department: "Legal" }).sort({ salary: 1 }).limit(5)
+
+9. Women ranked 30 to 50 in terms of salary earned
+db.employee_salary
+  .find({ gender: "Female" })
+  .sort({ salary: -1 })
+  .skip(30)
+  .limit(20)
+
+10. Men ranked 50 to 100 in terms of salary earned
+db.employee_salary
+  .find({ gender: "Male" })
+  .sort({ salary: -1 })
+  .skip(50)
+  .limit(100)
+
+11. Bottom 50 earning women in Engineering
+db.employee_salary
+  .find({ gender: "Female" }, { department: "Engineering" })
+  .sort({ salary: 1 })
+  .limit(50)
+
+12. Top 50 earning men in Human Resources
+db.employee_salary
+  .find({ gender: "Male" }, { department: "Human Resources" })
+  .sort({ salary: -1 })
+  .limit(50)
