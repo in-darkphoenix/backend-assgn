@@ -1,9 +1,41 @@
 const Movie = require("../model/Movie");
 
-const getAllMovies = async () => {
-  const movies = await Movie.find();
+const getAllMovies = async (parameters) => {
+  const {
+    title,
+    rating,
+    q,
+    page = 1,
+    limit = 10,
+    sort,
+    order = 1,
+  } = parameters;
+
+  const query = {};
+  if (title) {
+    query.title = title;
+  }
+  if (rating) {
+    query.rating = rating;
+  }
+
+  const sortQuery = {};
+  if (sort) {
+    sortQuery[`${sort}`] = order;
+  }
+
+  const movies = await Movie.find(query)
+    .skip((page - 1) * limit)
+    .limit(limit)
+    .sort(sortQuery);
 
   return movies;
+};
+
+const textSearchMovie = async (q) => {
+  const searchResult = await Movie.find({ $text: { $search: `\"${q}\"` } });
+
+  return searchResult;
 };
 
 const addMovie = async (movie) => {
@@ -30,4 +62,10 @@ const deleteMovie = async (id) => {
   return deletedMovie;
 };
 
-module.exports = { getAllMovies, addMovie, updateMovie, deleteMovie };
+module.exports = {
+  getAllMovies,
+  textSearchMovie,
+  addMovie,
+  updateMovie,
+  deleteMovie,
+};

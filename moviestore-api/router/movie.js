@@ -5,16 +5,32 @@ const {
   addMovie,
   updateMovie,
   deleteMovie,
+  textSearchMovie,
 } = require("../controller/moviesOps");
 
 const movieRouter = express.Router();
 
 movieRouter.get("/movie", async (req, res) => {
   try {
-    const movies = await getAllMovies();
+    const movies = await getAllMovies(req.query);
 
     res.send({
       ALL_MOVIES: movies,
+    });
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).send({ message: "Unexpected Error" });
+  }
+});
+
+movieRouter.get("/movie/search", async (req, res) => {
+  try {
+    const { q } = req.query;
+    const searchResult = await textSearchMovie(q);
+
+    res.send({
+      SEARCH_RESULTS: searchResult,
     });
   } catch (err) {
     console.error(err);
