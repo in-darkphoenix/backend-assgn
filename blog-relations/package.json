@@ -1,0 +1,17 @@
+{
+  "name": "blog-relations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "mongoose": "^6.8.4",
+    "node-emoji": "^1.11.0"
+  }
+}
