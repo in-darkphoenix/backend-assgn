@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
+mongoose.set("strictQuery", true);
+
+const { config } = require("../config/config");
 
 const connectDB = async () => {
-  const result = await mongoose.connect(
-    "mongodb://127.0.0.1:27017/blog_relations"
-  );
+  const result = await mongoose.connect(config.DB_CONNECTION_URL);
 
   return result;
 };
