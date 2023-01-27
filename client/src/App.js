@@ -9,6 +9,7 @@ import Layout from "./components/Layout";
 import { AuthContextProvider } from "./contexts/auth";
 import Login from "./components/Auth/Login";
 import GithubSignin from "./components/Pages/GithubSignin";
+import GoogleSignin from "./components/Pages/GoogleSignin";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -24,6 +25,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<DummyLayout />}>
                   <Route path="github-signin" element={<GithubSignin />} />
+                  <Route path="google-signin" element={<GoogleSignin />} />
                 </Route>
               </Routes>
             </Layout>

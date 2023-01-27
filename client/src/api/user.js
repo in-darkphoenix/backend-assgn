@@ -19,6 +19,10 @@ export async function loginWithGithubApi(code) {
   return axios.get(`/auth/github-signin/${code}`);
 }
 
+export const loginWithGoogleApi = async (code, scope, authuser, prompt) => {
+  return axios.get(`/auth/google-signin/${code}`);
+};
+
 export async function getLoggedInUser() {
   return axios.get(`/auth/loggedInUser`);
 }

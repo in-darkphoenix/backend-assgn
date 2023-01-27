@@ -44,8 +44,15 @@ export default function Login() {
             >
               {formType === "login" ? "Sign Up" : "Login"}
             </Button>
-            <a href={`https://github.com/login/oauth/authorize?client_id=${config.GITHUB_OAUTH_CLIENT_ID}`}>
+            <a
+              href={`https://github.com/login/oauth/authorize?client_id=${config.GITHUB_OAUTH_CLIENT_ID}`}
+            >
               <Button>Login With Github</Button>
+            </a>
+            <a
+              href={`https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://localhost:3000/google-signin&client_id=400342803304-03egi5a44sd17liiq5djdsuelv41cpa3.apps.googleusercontent.com&access_type=offline&prompt=consent&scope=https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/userinfo.email&response_type=code`}
+            >
+              <Button>Login With Google</Button>
             </a>
           </DialogActions>
         </DialogContent>
