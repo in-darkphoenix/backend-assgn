@@ -4,6 +4,7 @@ const UserSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
+  signinMethod: String,
   social_profile: {
     linkedIn: String,
     facebook: String,
@@ -11,6 +12,7 @@ const UserSchema = new mongoose.Schema({
     github: String,
     instagram: String,
   },
+  image: String,
   addresses: [{ line1: String, city: String, state: String, pincode: String }],
   blog_ids: [String],
 });

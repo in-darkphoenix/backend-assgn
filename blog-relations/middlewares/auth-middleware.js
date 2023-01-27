@@ -13,6 +13,16 @@ const auth = async (req, res, next) => {
     if (token) {
       try {
         jwt.verify(token, config.JWT_SECRET_KEY);
+
+        let user = jwt.decode(token);
+        user = await User.findById(user._id);
+        user = user.toJSON();
+        delete user.password;
+
+        // Modify the request object to contain the authenticated user
+        req.user = user;
+
+        next();
       } catch (err) {
         console.error(err);
 
@@ -20,19 +30,6 @@ const auth = async (req, res, next) => {
           message: "Invalid token provided",
         });
       }
-
-      let user = jwt.decode(token);
-
-      user = await User.findById(user._id);
-
-      user = user.toJSON();
-
-      delete user.password;
-
-      // Modify the request object to contain the authenticated user
-      req.user = user;
-
-      next();
     } else {
       res.status(401).send({
         message: "No auth token present",

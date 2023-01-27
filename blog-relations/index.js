@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
 
 const blogRouter = require("./routes/blog-router");
 const authRouter = require("./routes/auth-router");
@@ -12,9 +13,10 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(morgan("tiny"));
 
-app.use("/auth", authRouter);
-app.use("/blog", blogRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/blog", blogRouter);
 
 connectDB()
   .then(() => {
