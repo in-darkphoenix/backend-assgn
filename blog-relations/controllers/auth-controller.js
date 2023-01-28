@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
+const bcrypt = require("bcryptjs");
 
 const { config } = require("../config/config");
 const User = require("../models/User");
@@ -31,6 +32,10 @@ const register = async (req, res) => {
       });
     }
 
+    let password = userObj.password;
+    password = bcrypt.hashSync(password);
+    userObj.password = password;
+
     user = await User.create(userObj);
 
     res.send({
@@ -58,14 +63,14 @@ const login = async (req, res) => {
       res.status(400).send({
         error: "User with email does not exist",
       });
-    } else if (user.password !== password) {
+    } else if (!bcrypt.compareSync(password, user.password)) {
       res.status(400).send({
         error: "Wrong password",
       });
     } else {
       // Create JWT token
       const token = generateToken(user);
-      const { _id, name, social_profile } = user;
+      const { _id, name } = user;
 
       res.send({
         message: "Login successful",
