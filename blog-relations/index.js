@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const path = require("path");
 
 const blogRouter = require("./routes/blog-router");
 const authRouter = require("./routes/auth-router");
@@ -17,6 +18,12 @@ app.use(morgan("tiny"));
 
 app.use("/api/auth", authRouter);
 app.use("/api/blog", blogRouter);
+
+app.use("/", express.static("static"));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./static/index.html"));
+});
 
 connectDB()
   .then(() => {

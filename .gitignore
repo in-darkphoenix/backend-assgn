@@ -106,3 +106,5 @@ dist
 # Custom
 q-resource/
 .env.development
+.env.production
+*.pem
